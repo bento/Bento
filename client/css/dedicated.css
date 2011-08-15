@@ -1,0 +1,62 @@
+.dedicatedImg {
+	border: 2px solid #000; 
+    /* useful if you don't want a bg color from leaking outside the border: */        
+
+    -moz-box-shadow: 0px 0px 10px #141414; /* FF3.5 - 3.6 */
+    -webkit-box-shadow: 0px 0px 10px #141414; /* Saf3.0+, Chrome */
+    box-shadow: 0px 0px 10px #141414; /* Opera 10.5, IE9, FF4+, Chrome 10+ */
+}
+
+.dedicatedImgBg {
+	background-image: url("client/img/triangles.png");
+ 	background-color: #141414;
+ 	/*border-left: 1px solid #3b3b3b;*/
+ 	margin-left: -2px;
+}
+
+
+.dedicatedImgBg.fotoClass {
+	background-image: url("client/img/triangle.png");
+ 	background-color: #141414;
+ 	/*border-left: 1px solid #3b3b3b;/*/
+ 	margin-left: -2px;
+}
+
+
+.dedicatedTextBg {
+	background-image: url("");
+ 	background-color: #f2f2f2;
+ 	/*border-left: 1px solid #dcdcdc;/*/
+ 	margin-left: -2px;
+ 	padding: 40px;
+}
+
+.dedicatedCollectionBg {
+	background-image: url("client/img/dv_bg.png");
+ 	background-color: #141414;
+ 	/*border-left: 1px solid #3b3b3b;/*/
+ 	margin-left: -2px;
+}
+
+.dedicatedVideoBg {
+	background-image: url("client/img/dv_bg.png");
+ 	background-color: #141414;
+ 	border-left: 1px solid #3b3b3b;
+ 	margin-left: -2px;
+}
+
+.dedicatedAudioBg {
+	background-image: url("client/img/carbon-fibre.png");
+ 	background-color: #141414;
+ 	border-left: 1px solid #3b3b3b;
+ 	margin-left: -2px;
+}
+
+
+.dedicatedMediaError {
+ 	position: absolute;
+ 	font-family: "Andale Mono";
+ 	color: white;
+ 	font-size: 10;
+ 	text-align: center;
+ }

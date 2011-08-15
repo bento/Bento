@@ -1,0 +1,7 @@
+.hub {	
+	background: #141414 url("client/img/carbon_fibre.png");
+	border-top: 1px solid #3c3c3c;
+	-moz-box-shadow: inset 0px 0px 8px #000; 
+	-webkit-box-shadow: inset 0px 0px 8px #000; /* Saf3.0+, Chrome */
+    box-shadow: inset 0px 0px 8px #000; /* Opera 10.5, IE9, FF4+, Chrome 10+ */
+}
