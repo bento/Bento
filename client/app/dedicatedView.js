@@ -117,19 +117,29 @@ function createImageDedicated(obj,i,params) {
 
 	if(!params.dedicatedDone[i]) {
 
-		$('<div id="'+obj.content[i].uid+'loader"><img src="client/img/ajax-loader-dark.gif"></img></div>').appendTo($('#'+obj.content[i].uid));
+		var w = Number($(window).width()-params.winMarginWidth*2-params.dImgSpacing*2),
+			h = Number($(window).height()-params.winMarginTop-params.winMarginBot-params.dImgSpacing*2-params.hubRealH)
 		
-		$('#'+obj.content[i].uid+'loader').css({
+			$('<div id="'+obj.content[i].uid+'loader"><img src="client/img/ajax-loader-dark.gif"></img></div>').appendTo($('#'+obj.content[i].uid));
+
+			$('#'+obj.content[i].uid+'loader').css({
 			position:'absolute',
 			left:Number($(window).width()-20)/2,
-			top:Number($(window).height()-params.winMarginTop-gParams.winMarginBot-40)/2+params.winMarginTop
+			top:Number($(window).height()-params.winMarginTop-gParams.winMarginBot-40-params.hubRealH)/2+params.winMarginTop
 		});
+
+			$('<img id="'+obj.content[i].uid+'imgPre" class="dedicatedImg '+params.CSS+'" src="thumb?'+obj.content[i].info.src+'&'+
+		75+'&'+75+'" onload="thumbDoneImg(\''+obj.content[i].uid+'imgPre\',\''+obj.content[i].uid+'loader\');"></img>' ).appendTo($('#'+obj.content[i].uid));		
 		
 		$('<img id="'+obj.content[i].uid+'img" class="dedicatedImg '+params.CSS+'" src="thumb?'+
-		obj.content[i].info.src+'&'+
-		Number($(window).width()-params.winMarginWidth*2-params.dImgSpacing*2)+'&'+
-		Number($(window).height()-params.winMarginTop-params.winMarginBot-params.dImgSpacing*2)+
-		'" onload="posImg(this,\''+obj.content[i].uid+'loader\');"></img>' ).appendTo($('#'+obj.content[i].uid));		
+		obj.content[i].info.src+'&'+w+'&'+h
+		+'" onload="posImg(this,\''+obj.content[i].uid+'imgPre\',\''+obj.content[i].uid+'loader\');"></img>' ).appendTo($('#'+obj.content[i].uid));	
+		
+			$('#'+obj.content[i].uid+'imgPre').css({
+				height:h,
+				position:'absolute',
+				opacity:0
+			});
 		
 		$('#'+obj.content[i].uid+'img').css({opacity:0});    
 	
@@ -155,7 +165,7 @@ function createTextDedicated(obj,i,params) {
 			$('#'+obj.content[i].uid+'loader').css({
 				position:'absolute',
 				left:Number($(window).width()-20)/2,
-				top:Number($(window).height()-params.winMarginTop-gParams.winMarginBot-40)/2+params.winMarginTop
+				top:Number($(window).height()-params.winMarginTop-gParams.winMarginBot-40-params.hubRealH)/2+params.winMarginTop
 			});
 
 			$.ajax({
@@ -179,7 +189,7 @@ function createTextDedicated(obj,i,params) {
 	
 	function ready() {
 		
-		var textH =  Number($(window).height()-params.winMarginTop-params.winMarginBot-params.dTextSpacing*2-params.titleH-100),
+		var textH =  Number($(window).height()-params.winMarginTop-params.winMarginBot-params.dTextSpacing*2-params.titleH-100-params.hubRealH),
 			collums = 1,
 			maxCollums = 1,
 			textChunk = 0,
@@ -275,8 +285,11 @@ function createTextDedicated(obj,i,params) {
 				 			textFull = obj.content[i].info.fullText.slice(textChunkArray[j-1],textChunkArray[j]);			
 				 		}
 				 		
-				 		textFull = textFull.replace(/^<br>/,'REPLACE');
-				 		
+				 		console.log('=========== TEXT CHUNK========'+j)
+				 		console.log(textFull)
+				 		textFull = textFull.replace(/^ {0,}<\/br>/,'');
+				 		textFull = textFull.replace(/^ {0,}<\/br> {0,}<\/br>/,'');
+
 				 		$('<div id="'+obj.content[i].uid+'text'+j+'" class="miniScreenText'+params.CSS+'">'+textFull+'</div>' ).appendTo($('#'+obj.content[i].uid+pSelector+'textholder'));	
 				 	
 				 		$('#'+obj.content[i].uid+'text'+j).css({
@@ -294,7 +307,7 @@ function createTextDedicated(obj,i,params) {
 					
 					$('#'+obj.content[i].uid+pSelector+'textholder').css({
 						position: 'absolute',
-						top: (Number($(window).height())-Number(  textH )  -params.winMarginBot-params.winMarginTop-params.dTextSpacing*2-params.titleH )/2 ,		
+						top: (Number($(window).height())-Number(  textH )  -params.winMarginBot-params.winMarginTop-params.dTextSpacing*2-params.titleH-params.hubRealH )/2 ,		
 						left:makeW
 					});
 					
@@ -317,7 +330,7 @@ function createTextDedicated(obj,i,params) {
 			
 			$('#'+obj.content[i].uid+'textholder').css({
 				position: 'absolute',
-				top: (Number($(window).height())-Number(  textH )-params.winMarginBot-params.winMarginTop-params.dTextSpacing*2-params.titleH )/2 ,		
+				top: (Number($(window).height())-Number(  textH )-params.winMarginBot-params.winMarginTop-params.dTextSpacing*2-params.titleH-params.hubRealH )/2 ,		
 				left:makeW
 			});
 			
@@ -327,7 +340,7 @@ function createTextDedicated(obj,i,params) {
 		
 			$('#'+obj.content[i].uid+'textholder').css({
 				position: 'absolute',
-				top: (Number($(window).height())-Number(  $('#'+obj.content[i].uid+'text').height() )  -params.winMarginBot-params.winMarginTop-params.dTextSpacing*2-params.titleH - 40 )/2 ,		
+				top: (Number($(window).height())-Number(  $('#'+obj.content[i].uid+'text').height() )  -params.winMarginBot-params.winMarginTop-params.dTextSpacing*2-params.titleH - 40-params.hubRealH )/2 ,		
 				left:makeW
 			});
 		
@@ -471,7 +484,9 @@ function loadDedicated(i,params,force) {
 		}
 	
 	}
-		
+	
+	
+	setTimeout(function() {	
 	if(params.dedicatedObj.content[i].info.type == 'img' ) {
 		createImageDedicated(params.dedicatedObj,i,params); 
 	} else if(params.dedicatedObj.content[i].info.type == 'txt' ) {
@@ -483,25 +498,55 @@ function loadDedicated(i,params,force) {
 	} else if(params.dedicatedObj.content[i].info.type == 'audio') {
 		createAudioDedicated(params.dedicatedObj,i,params,params); 
 	}
+	},700);
 
 	params.dedicatedCurrent = i;
 
 }
 
-//image loaded < depricated straks met resize			
-function posImg(img,loader) {
-	$('#'+loader).empty().remove();
-											
+//image loaded < depricated straks met resize	
+function thumbDoneImg(img,loader) {
+
+
+	var w = $('#'+img).width()
+	, h = $('#'+img).height();
+	
+		$('#'+img).css({
+				position:'absolute',
+				left:Number($(window).width()-w)/2,
+				top:Number($(window).height()-gParams.winMarginTop-gParams.winMarginBot-h-gParams.hubRealH)/2+gParams.winMarginTop,
+				opacity: 1	
+			});
+			
+
+}
+		
+function posImg(img,pre,loader) {
+													
+	
+	$('#'+loader).empty().remove();															
+
+										
 	var w = $(img).width()
 	, h = $(img).height();
-							
+	//alert(gParams.hubRealH);						
 	$(img).css({
 		position:'absolute',
 		left:Number($(window).width()-w)/2,
-		top:Number($(window).height()-gParams.winMarginTop-gParams.winMarginBot-h)/2+gParams.winMarginTop
+		top:Number($(window).height()-gParams.winMarginTop-gParams.winMarginBot-h-gParams.hubRealH)/2+gParams.winMarginTop
 	});
+	
+
 														
-	$(img).animate({opacity:1},{duration:200});
+	$(img).animate({opacity:1},{duration:500});
+	
+	setTimeout(function(){ $('#'+pre).empty().remove() },500);
+	
+	
+	
+	//$('#'+pre).animate({opacity:0},{duration:400});
+
+	
 }	
 
 //==============================================================    
@@ -539,4 +584,27 @@ function closeDedicated(params) {
     	window.location.hash = '#/'+params.oldCurrent+'/'+params.indexURI();
       	
     } else  {
-    	window.location.hash = '#/'+params.current+'/'+params.indexURI(parseInt(params.dedicatedCurren
+    	window.location.hash = '#/'+params.current+'/'+params.indexURI(parseInt(params.dedicatedCurrent),params.dedicatedObj.content);
+    }	
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -15,7 +15,11 @@
 
 
 $(this).ready( function() {
-
+	
+	setTimeout(function() {
+		$('.typekit-badge').empty().remove();
+	},10);
+	
 	var app = new slideSite();
 	
 	app.init({
@@ -35,7 +39,7 @@ $(this).ready( function() {
 		menuMarginW:20,
 		titleH:35,
 		ImgTitle:false,
-		textCollumW: 720,
+		textCollumW: 480,
 		dTextCollumMargin: 94,
 		viewChain:[ 'overview' , 'dedicated-child' ],
 		hubH: 125
@@ -43,8 +47,8 @@ $(this).ready( function() {
 	{
 		fotos: 
 	    {
-	    	w:75,
-	    	h:75,
+	    	w:125,
+	    	h:125,
 	    	marginW: 0 ,
 			marginH: 0 ,
 			css:'fotoClass',
@@ -56,8 +60,27 @@ $(this).ready( function() {
 	    	w:170,
 	    	h:170
 	    } ,
-	    'ale/nesting':
+		Ramon: 
 	    {
+	    	w:215,
+	    	h:215,
+	    	marginW: 21 ,
+			marginH: 21 ,
+			hSpacing: 0,
+			padding: 0
+
+	    } ,
+
+
+	    ale:
+	    {
+	    	viewChain: [
+	    		{    
+	    			view: 'submenu' ,
+	    			context: 'self' ,
+	    			show: 'folder'
+	    		}	
+	    	],
 	    	css:'nesting4gibbbens'
 	    }
 	});
@@ -121,7 +144,7 @@ $(this).ready( function() {
 	
 	viewchain: 	[
 					{	// viewchain[0] is an Object, describing the behavior for the click on the 'root' folder
-						view : "overview" OR "dedicated", 	// not present (default): "overview"
+						view : "overview" OR "dedicated" OR "submenu", 	// not present (default): "overview"
 						context : "parent" OR "self",		// not present (default): "self"
 						show : Filestring				// a string excluding or including certain file types // not present (default): "all"
 					},

@@ -116,8 +116,8 @@ function position(params,animate) {
 		params.index = 0;
 	}
 	
-	console.log('=====TOT HIER=======');
-	console.log(params.displayArray);
+	//console.log('=====TOT HIER=======');
+	//console.log(params.displayArray);
 		
 	params.displayArray.forEach(function(obj) {
 	

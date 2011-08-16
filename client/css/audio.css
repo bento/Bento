@@ -1,0 +1,79 @@
+.aholder{
+	position: absolute;
+}
+
+.aplayer{
+
+	position: absolute;
+	
+
+}
+
+.aplaylist{
+
+	position: absolute;
+	color: white;
+
+}
+
+.listitem{
+
+	color: #AAAAAA;
+
+}
+
+.controlitem{
+	margin-left: 5;
+	margin-right: 5;
+	width: 20;
+	height: 25;
+	display: inline-block;
+}
+
+.aplayresume{
+	width: 20;
+	height: 25;		
+}
+
+.aloading{
+	background: url("client/img/loaderblack.gif");
+}
+
+.aplaying{
+	background: url("client/img/playpause.png");
+	background-position: -20px 0px;
+}
+
+.apausing{
+	background: url("client/img/playpause.png");
+	background-position: 0px 0px;
+}
+
+.aprevious{
+	background: url("client/img/playpause.png");
+	background-position: -40px 0px;
+}
+
+.anext{
+	background: url("client/img/playpause.png");
+	background-position: -80px 0px;
+}
+
+.avolume{
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ============== END OF FILE ============== */

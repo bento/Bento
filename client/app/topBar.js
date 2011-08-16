@@ -6,18 +6,18 @@ function topBar(params) {
 	var h = params.winMarginTop,
 	    topCss = {
 	    	position :'fixed' ,  
-	    	top : 0,
+	    	top : 0-h-5,
 	    	left : -5,
 	    	width : $(window).width()+5,
-	    	height : h,
-	    	opacity: 0
+	    	height : h	  ,
+	    	opacity: 0 
 	    }
 	
 	
 	
 	$('#slideSiteTopBar').css(topCss);			
 
-	$('#slideSiteTopBar').animate({opacity:1},{duration:200});			
+	//$('#slideSiteTopBar').animate({opacity:1},{duration:200});			
 
 	
 	var topBar = {
@@ -26,7 +26,7 @@ function topBar(params) {
 	}
 	
 	
-	$('<div id="slideSiteTopBarLogo" class="slideSiteTopBarLogo"><a class="" href="#/'+params.home+'/"><img src="'+params.logo+'"></img></a></div>' ).appendTo($('#slideSiteTopBar'));
+	$('<div id="slideSiteTopBarLogo" class="slideSiteTopBarLogo"><a class="" href="#/'+params.home+'/"><img onload="logoLoaded();" src="'+params.logo+'"></img></a></div>' ).appendTo($('#slideSiteTopBar'));
 	
 	
 	
@@ -53,3 +53,13 @@ function topBar(params) {
 	
 			
 }				
+
+
+function logoLoaded(img) {
+	setTimeout(function() {	
+	$('#slideSiteTopBar').animate({opacity: 1,top : 0 },{duration:400});
+	$('#slideSiteMenu').animate({opacity: 1,top : $(window).height()-gParams.winMarginBot },{duration:400});
+	
+	    	//$('#slideSiteHub').animate({opacity: 1,top : $(window).height()-params.winMarginBot },{duration:200});
+	}, 800);
+}

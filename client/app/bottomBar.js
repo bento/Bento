@@ -10,18 +10,18 @@ function bottomBar(params) {
 		padding:12
 	});			
 
-	$('<div id="toggleHub" class="icon star"></div>').appendTo($('#slideSiteMenu'))
+	$('<div id="toggleHub2" class="icon star"></div>').appendTo($('#slideSiteMenu'))
 	
-	$('<div id="toggleHub" class="icon viewed"></div>').appendTo($('#slideSiteMenu'))
+	$('<div id="toggleHub3" class="icon viewed"></div>').appendTo($('#slideSiteMenu'))
 	
-	$('<div id="toggleHub" class="icon left"></div>').appendTo($('#slideSiteMenu'))
+	$('<div id="toggleHub4" class="icon left"></div>').appendTo($('#slideSiteMenu'))
 	
-	$('<div id="toggleHub" class="icon download"></div>').appendTo($('#slideSiteMenu'))
+	$('<div id="toggleHub5" class="icon close"></div>').appendTo($('#slideSiteMenu'))
 
 	var h = params.winMarginBot,
 	    bottomCss = {
 	    	position :'fixed' ,  
-	    	top : $(window).height()-h,
+	    	top : $(window).height()-h+params.winMarginBot,
 	    	left : -5,
 	    	width : $(window).width()+5,
 	    	height : h

@@ -1,3 +1,5 @@
+var totalImages = 0;
+
 function displayMiniScreen(obj,params,slumber) {
 
 		var CSSclass = params.css;
@@ -111,29 +113,32 @@ function displayMiniScreen(obj,params,slumber) {
 	}
 
 	function generateImage(src,text,slumber) {
+						
 		if(!src) {
 			if(params.ImgTitle) {						
-				$('<div id="'+obj.uid+'img" class="miniScreenImg'+CSSclass+'"><img src="'+obj.info.thumb+'&'+params.w+'&'
-				+params.h-params.titleH-params.infoH+'&true"></img></div>' ).appendTo($('#'+obj.uid+'nest'));
+				$('<div id="'+obj.uid+'img" class="miniScreenImg'+CSSclass+'" ><img src="'+obj.info.thumb+'&'+params.w+'&'
+				+params.h-params.titleH-params.infoH+'&true" onload="fadeImgMiniScreen(\''+obj.uid+'img\');"></img></div>' ).appendTo($('#'+obj.uid+'nest'));
 			} else {
-				$('<div id="'+obj.uid+'img" class="miniScreenImg '+CSSclass+'"><img src="'+obj.info.thumb+'&'+params.w+'&'+params.h+'&true"></img></div>' ).appendTo($('#'+obj.uid+'nest'));
+				$('<div id="'+obj.uid+'img" class="miniScreenImg '+CSSclass+'"><img src="'+obj.info.thumb+'&'+params.w+'&'+params.h+'&true" onload="fadeImgMiniScreen(\''+obj.uid+'img\');"></img></div>' ).appendTo($('#'+obj.uid+'nest'));
 			}
 		}
 		else if(text && src) {
 			$('<div id="'+obj.uid+'img" class="miniScreenImg'+CSSclass+'"><img src="'+src+'&'+params.w+'&'
-			+params.h+'&true"></img></div>' ).appendTo($('#'+obj.uid+'nest'));
+			+params.h+'&true" onload="fadeImgMiniScreen(\''+obj.uid+'img\');"></img></div>' ).appendTo($('#'+obj.uid+'nest'));
 			$('#'+obj.uid+'img').css({
 				height: params.imgCollectionH,
 				overflow:'hidden'
 			});
 		} else {
 			$('<div id="'+obj.uid+'img" class="miniScreenImg'+CSSclass+'"><img src="'+src+'&'+params.w+'&'
-			+params.h+'&true"></img></div>' ).appendTo($('#'+obj.uid+'nest'));
+			+params.h+'&true"  onload="fadeImgMiniScreen(\''+obj.uid+'img\');"></img></div>' ).appendTo($('#'+obj.uid+'nest'));
 			$('#'+obj.uid+'img').css({
 				height: (params.h-Number(params.titleH+10)-Number(params.infoH)),
 				overflow:'hidden'
 			});		
 		}
+		$('#'+obj.uid+'img').css({opacity:0});   
+		
 	}
 	
 	function generateTitle(img) {
@@ -174,6 +179,16 @@ function displayMiniScreen(obj,params,slumber) {
 }
 
 
+
+
+
+function fadeImgMiniScreen(id) {	
+	
+	//$('#'+id+'pre').empty().remove();
+		//alert(img)
+	//$('#'+id).css({  position: 'absolute' , top:0, left: 0  });
+	$('#'+id).animate({opacity:1},{duration:200});
+}	
 
 
 

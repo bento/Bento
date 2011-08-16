@@ -1,0 +1,86 @@
+.audioControls {
+	background-image: url("client/img/audio_controls.png");
+	display: inline-block;
+	height:40px;
+	width:40px;
+	padding:0;
+}
+
+.playIcon, .playIcon:hover{
+	background-position: 0px 0px;
+}
+
+.playIcon:active, .playIcon:focus{
+	background-position: 0px 0px;
+}
+
+.pauseIcon, .pauseIcon:hover{
+	background-position: 0px 0px;
+}
+
+.pauseIcon:active, .pauseIcon:focus{
+	background-position: 0px 0px;
+}
+
+.nextIcon, .nextIcon:hover{
+	background-position: 0px 0px;
+}
+
+.nextIcon:active, .nextIcon:focus{
+	background-position: 0px 0px;
+}
+
+.previousIcon, .previousIcon:hover{
+	background-position: 0px 0px;
+}
+
+.previousIcon:active, .previousIcon:focus{
+	background-position: 0px 0px;
+}
+
+.pauseIcon, .pauseIcon:hover{
+	background-position: 0px 0px;
+}
+
+.pauseIcon:active, .pauseIcon:focus{
+	background-position: 0px 0px;
+}
+
+.pauseIcon, .pauseIcon:hover{
+	background-position: 0px 0px;
+}
+
+.pauseIcon:active, .pauseIcon:focus{
+	background-position: 0px 0px;
+}
+
+.pauseIcon, .pauseIcon:hover{
+	background-position: 0px 0px;
+}
+
+.pauseIcon:active, .pauseIcon:focus{
+	background-position: 0px 0px;
+}
+
+.pauseIcon, .pauseIcon:hover{
+	background-position: 0px 0px;
+}
+
+.pauseIcon:active, .pauseIcon:focus{
+	background-position: 0px 0px;
+}
+
+.pauseIcon, .pauseIcon:hover{
+	background-position: 0px 0px;
+}
+
+.pauseIcon:active, .pauseIcon:focus{
+	background-position: 0px 0px;
+}
+
+.pauseIcon, .pauseIcon:hover{
+	background-position: 0px 0px;
+}
+
+
+/* COMMENT */

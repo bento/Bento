@@ -61,7 +61,7 @@ body {
  
 .slideSiteMenu {
 	background: url("client/img/nav4.gif");
-	border-top: 1px solid #3c3c3c;
+	border-top: 1px solid #000;
 	position: absolute;
 }
 
@@ -139,21 +139,28 @@ img{	/* DANGEREUX POUR LE FUNNNN */
 	padding:0;
 }
 
-.navigation {
-
+.menuItem {
+	top:1px;
+	padding: 0px 10px 0px 10px;
+	border-left: 1px solid #262626;
+	font-weight: bold;
+	text-shadow: 1px 1px 3px #111;
+	color: #999999;
+	cursor: hand;
 }
 
-.slideSiteTopBarItem {
-	top: 5px;
-	padding: 0px 10px 0px 10px;
-	border-left: 1px solid #212121;
-}
-
-.slideSiteTopBarItem:hover {
-	top: 5px;
-	padding: 0px 10px 0px 10px;
-	border-left: 1px solid #212121;
+.menuItem:hover {
+	background: #3f3f3f;
 	opacity: 0.9;
+	border-left: 1px solid #212121;
+	color: #fff;
+	cursor: hand;
+}
+
+.menuCurrent {
+	background: #3f3f3f;
+	color: #fff;
+	cursor: hand;
 }
 
 
