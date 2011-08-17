@@ -235,7 +235,6 @@ function createTextDedicated(obj,i,params) {
  
 			for(var p=0; p < pages ; p++) {
  				 				
-
  				if(p > 0) {
  					
  					pSelector = 'p'+p;

@@ -35,14 +35,14 @@ $(this).ready( function() {
 		winMarginBot: 50,
 		imgCollectionH : 150,
 		showMenu: true,
-		home: 'fotos',
+		home: 'p/fotos',
 		menuMarginW:20,
 		titleH:35,
 		ImgTitle:false,
 		textCollumW: 480,
 		dTextCollumMargin: 94,
-		viewChain:[ 'overview' , 'dedicated-child' ],
-		hubH: 125
+		hubH: 125,
+		viewChain: [ { view: 'overview'  }  ]
 	},
 	{
 		fotos: 
@@ -53,12 +53,20 @@ $(this).ready( function() {
 			marginH: 0 ,
 			css:'fotoClass',
 			hSpacing: 50,
-			padding: 0
-	    } , 
+			padding: 0,
+			viewChain: [
+	    	{
+	    		view: 'dedicated',
+	    		context: 'self'
+	    	}
+	    	
+	    	]
+
+		} , 
 		search: 
 	    {
 	    	w:170,
-	    	h:170
+	    	h:170,
 	    } ,
 		Ramon: 
 	    {
@@ -67,21 +75,52 @@ $(this).ready( function() {
 	    	marginW: 21 ,
 			marginH: 21 ,
 			hSpacing: 0,
-			padding: 0
+			padding: 0,
+			viewChain: [
+	    		{    
+	    			view: 'submenu' ,
+	    			context: 'self' ,
+	    			show: 'folder|img|txt',
+	    			submenu: 'dedicated'
+	    		}, 
+	    		[
+	    			{   
+	    				when: 'folder', 
+	    				view: 'dedicated' ,
+	    				context: 'self' 	    			
+	    			}
+	    		,
+	    			{   
+	    				when: 'txt', 
+	    				view: 'overview' ,
+	    				context: 'parent' 	    			
+	    			}
+	    		,
+	    			{
+	    				when: 'img',
+	    				view: 'dedicated',
+	    				context: 'parent',
+	    				show: 'img'
+	    			}
+	    		]		
+	    	] 
+
 
 	    } ,
-
-
 	    ale:
 	    {
+	    	css:'nesting4gibbbens',
 	    	viewChain: [
 	    		{    
 	    			view: 'submenu' ,
 	    			context: 'self' ,
-	    			show: 'folder'
-	    		}	
-	    	],
-	    	css:'nesting4gibbbens'
+	    			show: 'folder' 
+	    		}
+	   
+	    		
+	    			
+	    	]
+
 	    }
 	});
 			
@@ -143,6 +182,11 @@ $(this).ready( function() {
 	
 	
 	viewchain: 	[
+	
+	
+	extra submenu:
+	
+	
 					{	// viewchain[0] is an Object, describing the behavior for the click on the 'root' folder
 						view : "overview" OR "dedicated" OR "submenu", 	// not present (default): "overview"
 						context : "parent" OR "self",		// not present (default): "self"

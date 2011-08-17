@@ -4,83 +4,99 @@
 	height:40px;
 	width:40px;
 	padding:0;
+	margin:0;
 }
 
-.playIcon, .playIcon:hover{
-	background-position: 0px 0px;
+.playIcon{
+	background-position: 0px -160px;
 }
 
-.playIcon:active, .playIcon:focus{
-	background-position: 0px 0px;
+.playIcon:hover, .playIcon:active, .playIcon:focus{
+	background-position: -40px -160px;
 }
 
-.pauseIcon, .pauseIcon:hover{
-	background-position: 0px 0px;
+.pauseIcon{
+	background-position: 0px -80px;
 }
 
-.pauseIcon:active, .pauseIcon:focus{
-	background-position: 0px 0px;
+.pauseIcon:hover, .playIcon:active, .playIcon:focus{
+	background-position: -40px -80px;
 }
 
-.nextIcon, .nextIcon:hover{
-	background-position: 0px 0px;
+.volumeFullIcon{
+	background-position: 0px -80px;
 }
 
-.nextIcon:active, .nextIcon:focus{
-	background-position: 0px 0px;
+.volumeFullIcon:hover, .volumeFullIcon:active, .volumeFullIcon:focus{
+	background-position: -40px -80px;
 }
 
-.previousIcon, .previousIcon:hover{
-	background-position: 0px 0px;
+.volumeHalfIcon{
+	background-position: 0px -80px;
 }
 
-.previousIcon:active, .previousIcon:focus{
-	background-position: 0px 0px;
+.volumeHalfIcon:hover, .volumeHalfIcon:active, .volumeHalfIcon:focus{
+	background-position: -40px -80px;
 }
 
-.pauseIcon, .pauseIcon:hover{
-	background-position: 0px 0px;
+.volumeMuteIcon{
+	background-position: 0px -80px;
 }
 
-.pauseIcon:active, .pauseIcon:focus{
-	background-position: 0px 0px;
+.volumeMuteIcon:hover, .volumeMuteIcon:active, .volumeMuteIcon:focus{
+	background-position: -40px -80px;
 }
 
-.pauseIcon, .pauseIcon:hover{
-	background-position: 0px 0px;
+.volumeIcon{
+	background-position: 0px -80px;
 }
 
-.pauseIcon:active, .pauseIcon:focus{
-	background-position: 0px 0px;
+.volumeIcon:hover, .volumeIcon:active, .volumeIcon:focus{
+	background-position: -40px -80px;
 }
 
-.pauseIcon, .pauseIcon:hover{
-	background-position: 0px 0px;
+.volumeSliderIcon{
+	background-position: -80px -160px;
 }
 
-.pauseIcon:active, .pauseIcon:focus{
-	background-position: 0px 0px;
+volumeBar{
+	position: absolute;
+ Ê Êdisplay: inline-block;
+ Ê Êheight: 5px;
+ Ê Êwidth: 40px;
+ Ê Êborder: 1px solid #1c1c1c;
+ 	border-bottom: 1px solid #656565;
+ 	box-shadow:inset 0 1px 3px #292929;
+ Ê Ê-moz-border-radius: 3px;
+ Ê Êborder-radius: 3px;
+ Ê Êbackground-color: #363636;
+ Ê Ê-moz-user-select: none; Ê Ê
+ Ê Ê-webkit-user-select: none;
+ Ê Êbottom:16.5px;
 }
 
-.pauseIcon, .pauseIcon:hover{
-	background-position: 0px 0px;
+.nextIcon{
+	background-position: 0px -80px;
 }
 
-.pauseIcon:active, .pauseIcon:focus{
-	background-position: 0px 0px;
+.nextIcon:hover, .nextIcon:active, .nextIcon:focus{
+	background-position: -40px -80px;
 }
 
-.pauseIcon, .pauseIcon:hover{
-	background-position: 0px 0px;
+.previousIcon{
+	background-position: 0px -80px;
 }
 
-.pauseIcon:active, .pauseIcon:focus{
-	background-position: 0px 0px;
+.previousIcon:hover, .previousIcon:active, .previousIcon:focus{
+	background-position: -40px -80px;
 }
 
-.pauseIcon, .pauseIcon:hover{
-	background-position: 0px 0px;
+.trackLoaderIcon{
+	background-position: 0px -80px;
 }
 
+.trackLoaderIcon:hover, .trackLoaderIcon:active, .trackLoaderIcon:focus{
+	background-position: -40px -80px;
+}
 
-/* COMMENT */
+/* COMMENT BECAUSE ZE CODA IS BORG */

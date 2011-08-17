@@ -105,10 +105,23 @@ function displayMiniScreen(obj,params,slumber) {
 		} else if(text && full) {
 	        tt = text.slice(0,params.collectionTextLength);
 			$('<div id="'+obj.uid+'txt"  class="miniScreenText'+CSSclass+'">'+tt+'</div>' ).appendTo($('#'+obj.uid+'nest'));	
+			
+			$('#'+obj.uid+'txt').css({
+				height: params.h-params.titleH-25-Number(params.infoH),
+				overflow:'hidden'
+			});
+			
+			
 		} else {
 	        tt = text;
 			$('<div id="'+obj.uid+'txt"  class="miniScreenText">'
 			+tt+'</div>' ).appendTo($('#'+obj.uid+'nest'));	
+		
+			$('#'+obj.uid+'txt').css({
+				height: params.h-params.titleH-25-Number(params.infoH),
+				overflow:'hidden'
+			});			
+			
 		}
 	}
 

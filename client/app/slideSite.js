@@ -52,12 +52,13 @@ function slideSite() {
 		paramsInit.scrollPos = 0;
 		paramsInit.rootPos = 0;
 		paramsInit.custom = customParams;
+		paramsInit.gotoCategory = gotoCategory;
 		paramsInit.css = ' ';
 		paramsInit.CSS = '';
 				
 		paramsBase = paramsInit;
 		
-		setCustomParams('',true)
+		setCustomParams('',true);
 		params.displayArray = [];
 		
 		$('<div id="root_screens" style="position:absolute"></div>').appendTo('#root');		
@@ -68,8 +69,10 @@ function slideSite() {
 		initScroll(scrollIt);
 		iniHubBtns();
 		
-		params.aplayer = new Aplayer('slideSiteTopBar'); 
+		params.aplayer = new Aplayer('slideSiteMenu'); 
 		
+		$('#aplayerholder').css({'margin-left':($(window).width()-225)/2});
+
 		$(window).bind('hashchange', function () {
   			  			
   			var hash = window.location.hash || params.home;
@@ -87,7 +90,7 @@ function slideSite() {
   			    
   				if(arr[1] != undefined) {
   					
-  					if(arr[1] === 'p') {
+  					if(arr[1] === 'p' ) {
   						
 						  var path = arr.slice(2);
 						  	
@@ -120,6 +123,7 @@ function slideSite() {
 	  							} else {
 	  								setCustomParams(arrCurrent);
 	  								params.dedicated = false;
+	  								
 	  								gotoCategory( arrCurrent , Number( arr[arr.length-1]), true );
 	  							}
 	  						} else {
@@ -205,6 +209,10 @@ function slideSite() {
 	
 	function gotoDedicated(category,path,search) {
 		
+		
+		curMenu(category); 
+
+		
 		category = category.replace(/^\//,'');
 				
 		var found;
@@ -287,10 +295,12 @@ function slideSite() {
 		
 	this.gotoCategory = gotoCategory;
 	
-	function gotoCategory(category,index,convert,memmoryReady) {
-				
-		curMenu(category); 
+	function gotoCategory(category,index,convert,memmoryReady,passon) {
 		
+		if(!memmoryReady) {
+			curMenu(category); 
+		}
+				
 		category = category.replace(/^\//,'');
 		
 		var found;
@@ -323,14 +333,12 @@ function slideSite() {
 	    	context: document.body,
 	    	success: function(data){  
 	    	    
-	    	    params.memmory.push(  {  name:  category , content:   JSON.parse(data).data       } );
-	    	    
-	    	    		if(!memmoryReady) {
-
-				    	    $('#ajaxloader').empty().remove();
-						}		
+	    	    params.memmory.push({ name:  category , content:   JSON.parse(data).data });
+	    	    if(!memmoryReady) {
+			   		$('#ajaxloader').empty().remove();
+				}		
 	    	    if(params.current === category || memmoryReady) {
-	    	    	ready(params.memmory[params.memmory.length-1]);
+	    	   		ready(params.memmory[params.memmory.length-1]);
 	    	    }
         	}
         	
@@ -344,9 +352,11 @@ function slideSite() {
 	    		if(!memmoryReady) {
 	    			displayCategory(obj,params,index,false,convert);   
 	    		} else{
-	    			
-	    			memmoryReady(obj.content);
-	    		
+	    			if(passon) {
+	    				memmoryReady(obj.content,passon);
+	    			} else {
+	    				memmoryReady(obj.content);
+	    			}	
 	    		}	
 	    	} else {
 	    		console.log(obj.content);
@@ -428,6 +438,10 @@ function slideSite() {
 	 	$('#slideSiteTopBar').css({
 			'width' : $(window).width()+5
 		});
+
+
+		$('#aplayerholder').css({'margin-left':($(window).width()-225)/2});
+
 
 		$('#slideSiteMenuText').css({'margin-left':($(window).width()-$('#slideSiteMenuText').width())/2});
 		$('#slideSiteMenuSearch').css({'margin-left':($(window).width()-$('#slideSiteMenuSearch').width()-30)});
@@ -805,11 +819,11 @@ function slideSite() {
         $('#toggleHub').click(function() {
             if(params.hubRealH > 0) {
                 params.hubRealH = 0
-                $('#slideSiteHub').animate({  top: $(window).height()-params.hubRealH-params.winMarginBot },{duration:400});
+                $('#slideSiteHub').animate({  top: $(window).height()-params.hubRealH-params.winMarginBot },{duration:200});
                 position(params,true);
             } else {
                 params.hubRealH = params.hubH;
-                $('#slideSiteHub').animate({top:  $(window).height()-params.hubRealH-params.winMarginBot },{duration:400});
+                $('#slideSiteHub').animate({top:  $(window).height()-params.hubRealH-params.winMarginBot },{duration:300});
                 position(params,true);
             }
         });
@@ -841,7 +855,7 @@ function slideSite() {
 
 
 
-
+//========END OF SCRIPT==========
 
 		
 			

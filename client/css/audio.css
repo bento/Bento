@@ -1,79 +1,219 @@
-.aholder{
+.aplayerContainer{
+	width: 225px;
+	bottom: 30px;
+	left: 450px;
 	position: absolute;
 }
 
-.aplayer{
-
-	position: absolute;
-	
-
-}
-
-.aplaylist{
-
-	position: absolute;
-	color: white;
-
-}
-
-.listitem{
-
-	color: #AAAAAA;
-
-}
-
-.controlitem{
-	margin-left: 5;
-	margin-right: 5;
-	width: 20;
-	height: 25;
+.audioControls {
+	background-image: url("client/img/audio_controls.png");
 	display: inline-block;
+	height:40px;
+	width:40px;
+	padding:0;
+	margin:0;
+	/* border:1px solid red; */
 }
 
-.aplayresume{
-	width: 20;
-	height: 25;		
+.trackLoaderIcon{
+	background-image: url("client/img/track_loader.gif");
 }
 
-.aloading{
-	background: url("client/img/loaderblack.gif");
+.playIcon{
+	background-position: 0px -120px;
 }
 
-.aplaying{
-	background: url("client/img/playpause.png");
-	background-position: -20px 0px;
+.playIcon:hover, .playIcon:active, .playIcon:focus{
+	background-position: -40px -120px;
 }
 
-.apausing{
-	background: url("client/img/playpause.png");
+.pauseIcon{
+	background-position: 0px -240px;
+}
+
+.pauseIcon:hover, .playIcon:active, .playIcon:focus{
+	background-position: -40px -240px;
+}
+
+.previousIcon{
+	background-position: -80px -320px;
+}
+
+.previousIcon:hover, .previousIcon:active, .previousIcon:focus{
+	background-position: -120px -320px;
+}
+
+.nextIcon{
+	background-position: -80px -280px;
+}
+
+.nextIcon:hover, .nextIcon:active, .nextIcon:focus{
+	background-position: -120px -280px;
+}
+
+.audioBarHolder{
+	position: relative;
+	display: inline-block;
+/* 	min-height: 20px; */
+	bottom:23px;
+	
+}
+
+.volumeBar{
+	height: 5px;
+	width: 80px;
+	border: 1px solid #1c1c1c;
+ 	border-bottom: 1px solid #555555;
+ 	box-shadow:inset 0 1px 3px #292929;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background-color: #363636;
+	-moz-user-select: none;	
+	-webkit-user-select: none;
+	position: absolute;
+
+}
+
+.volumeSlider{
+	background-image: url("client/img/audio_controls.png");
+	background-position: -90px -90px;
+	position: absolute;
+	width:25px;
+	height:25px;
+	left: 10px;
+	top: -6px;
+}
+
+.volumeFullIcon{
 	background-position: 0px 0px;
 }
 
-.aprevious{
-	background: url("client/img/playpause.png");
+.volumeFullIcon:hover, .volumeFullIcon:active, .volumeFullIcon:focus{
 	background-position: -40px 0px;
 }
 
-.anext{
-	background: url("client/img/playpause.png");
-	background-position: -80px 0px;
+.volumeHalfIcon{
+	background-position: -40px 0px;
 }
 
-.avolume{
+.volumeHalfIcon:hover, .volumeHalfIcon:active, .volumeHalfIcon:focus{
+	background-position: -40px -40px;
+}
 
+.volumeMuteIcon{
+	background-position: 0px -80px;
+}
+
+.volumeMuteIcon:hover, .volumeMuteIcon:active, .volumeMuteIcon:focus{
+	background-position: -40px -80px;
+}
+
+.volumeIcon{
+	background-position: 0px -120px;
+}
+
+.volumeIcon:hover, .volumeIcon:active, .volumeIcon:focus{
+	background-position: 0px -160px;
 }
 
 
+/*
+
+volumeBar{
+	position: absolute;
+ Ê Êdisplay: inline-block;
+ Ê Êheight: 3px;
+ Ê Êwidth: 40px;
+ Ê Êborder: 1px solid #9d9d9d;
+ Ê Ê-moz-border-radius: 3px;
+ Ê Êborder-radius: 3px;
+ Ê Êbackground-color: #3a3a3a;
+ Ê Ê-moz-user-select: none; Ê Ê
+ Ê Ê-webkit-user-select: none;
+ Ê Êbottom:17px;
+}
+
+.audioControls {
+	background-image: url("client/img/audio_controls.png");
+	display: inline-block;
+	height:40px;
+	width:40px;
+	padding:0;
+	margin:0;
+	border:1px solid red;
+}
+
+.playIcon{
+	background-position: 0px -120px;
+}
+
+.playIcon:hover, .playIcon:active, .playIcon:focus{
+	background-position: -40px -120px;
+}
+
+.pauseIcon{
+	background-position: 0px -240px;
+}
+
+.pauseIcon:hover, .playIcon:active, .playIcon:focus{
+	background-position: -40px -240px;
+}
+
+.volumeFullIcon{
+	background-position: 0px -80px;
+}
+
+.volumeFullIcon:hover, .volumeFullIcon:active, .volumeFullIcon:focus{
+	background-position: -40px -80px;
+}
+
+.volumeHalfIcon{
+	background-position: 0px -80px;
+}
+
+.volumeHalfIcon:hover, .volumeHalfIcon:active, .volumeHalfIcon:focus{
+	background-position: -40px -80px;
+}
+
+.volumeMuteIcon{
+	background-position: 0px -80px;
+}
+
+.volumeMuteIcon:hover, .volumeMuteIcon:active, .volumeMuteIcon:focus{
+	background-position: -40px -80px;
+}
+
+.volumeIcon{
+	background-position: 0px -80px;
+}
+
+.volumeIcon:hover, .volumeIcon:active, .volumeIcon:focus{
+	background-position: -40px -80px;
+}
+
+.volumeSliderIcon{
+	background-position: -80px -160px;
+}
+
+.previousIcon{
+	background-position: 0px -80px;
+}
+
+.previousIcon:hover, .previousIcon:active, .previousIcon:focus{
+	background-position: -40px -80px;
+}
+
+.nextIcon{
+	background-position: 0px -80px;
+}
+
+.nextIcon:hover, .nextIcon:active, .nextIcon:focus{
+	background-position: -40px -80px;
+}
 
 
-
-
-
-
-
-
-
-
+*/
 
 
 /* ============== END OF FILE ============== */

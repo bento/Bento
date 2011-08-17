@@ -12,30 +12,23 @@ function Aplayer(parentid, options){
 
 	var playToggle = this.playToggle;
 	
-    $('#'+parentid).append( '<div id="aplayerholder" class="aholder">'+
-	    						'<div id="aplayerdiv" class="aplayer" style="display:none">'+
-									'<audio id="aplayer" controls></audio>'+
-									'<div id="acontrols" class="acontrols">'+
-										'<div id="aplayresume" class="controlitem"></div>'+
-										'<div id="aprevious" class="controlitem aprevious"></div>'+
-										'<div id="anext" class="controlitem anext"></div>'+
-										'<div id="avolume" class="controlitem avolume"></div>'+
-									'</div>'+
-									'<div id="aplaylist" class="aplaylist">Playlist</div>'+
-								'</div>'+
+    $('#'+parentid).append( '<div id="aplayercontainer" class="aplayerContainer">'+
+								'<audio id="aplayer"></audio>'+
+    							'<div id="acontrols" class="acontrols">'+										
+    								'<div id="aprevious" class="audioControls previousIcon"></div>'+
+    								'<div id="aplayresume" class="audioControls playIcon"></div>'+
+    								'<div id="anext" class="audioControls nextIcon"></div>'+
+    								'<div id="avolume" class="audioControls volumeFullIcon"></div>'+
+    								'<div id="abarholder" class="audioBarHolder">'+
+    									'<div id="avolumebar" class="volumeBar"></div>'+
+    									'<div id="avolumeslider" class="volumeSlider"></div>'+
+    								'</div>'+
+    							'</div>'+
 							'</div>'
 							);
 							
 	this._audio = document.getElementById('aplayer')
 	
-	// fix positioning
-	$('#aplayerdiv').css({'display':'block'})
-	
-	var apw = Number($('#aplayerholder').css('width').split('px')[0])
-	console.log(apw,$('#aplayerholder').css('width'))
-	$('#aplayerholder').css({'left':Number($(window).width())/2 - apw/2})
-	
-	// set listeners on controls
    	$('#aplayresume').click(function(){
    		aplayer.playToggle()
    	})   	
@@ -45,6 +38,10 @@ function Aplayer(parentid, options){
    	$('#anext').click(function(){
    		aplayer.playNext()
    	})
+   	$('#avolume').click(function(){
+   		aplayer.muteToggle()
+   	})   	
+   	
 
 }
 
@@ -61,13 +58,13 @@ Aplayer.prototype.play = function(aobj) {
     $('#aplayer').append('<source src="'+aobj.src+'" type="audio/mp3" />')
     
     // show loading icon
-    setLastClass('#aplayresume', 'aloading');
+    setCClass('#aplayresume', 'trackLoaderIcon');
     
     // handle loading for play/pause button & autoplay
     audio.addEventListener('canplaythrough',canPlay,false);
     function canPlay(){
     	audio.play();
-    	setLastClass('#aplayresume', 'aplaying');
+    	setCClass('#aplayresume', 'pauseIcon');
     }
 
     // add to tracklist if necesarry
@@ -83,7 +80,7 @@ Aplayer.prototype.play = function(aobj) {
     if(!inplaylist){
     	tracklist.push(aobj);
     	this.listindex = tracklist.length-1;
-    	$('#aplaylist').append('<div id="list'+aobj.uid+'" class="listitem">'+aobj.name+'</div>')
+    	//$('#aplaylist').append('<div id="list'+aobj.uid+'" class="listitem">'+aobj.name+'</div>')
     }
     
     
@@ -96,10 +93,10 @@ Aplayer.prototype.play = function(aobj) {
 Aplayer.prototype.playToggle = function() {
 	var audio = this._audio;
 	if (audio.paused){
-		setLastClass('#aplayresume', 'aplaying');
+		setCClass('#aplayresume', 'pauseIcon');
     	audio.play();
     }else{
-    	setLastClass('#aplayresume', 'apausing');
+    	setCClass('#aplayresume', 'playIcon');
     	audio.pause();
     }    
 };
@@ -121,15 +118,33 @@ Aplayer.prototype.playNext = function() {
 	}
 }
 
+Aplayer.prototype.muteToggle = function() {
+	var volumeclass = 'volumeFullIcon';
+	if(this._audio.volume < 0.8){
+		volumeclass = 'volumeHalfIcon';
+		if(this._audio.volume < 0.4){
+			volumeclass = 'volumeIcon';
+		}
+	}
+	if(this._audio.muted){
+		this._audio.muted = false;
+		setCClass('#avolume', volumeclass);
+	}else{
+		this._audio.muted = true;
+		setCClass('#avolume', 'volumeMuteIcon');
+	}
+}
+
+
+
+
 Aplayer.prototype.addList = function(list, play) {
 
 	
 	
 };
 
-
-
-function setLastClass(divid, newclass){
+function setCClass(divid, newclass){
 	$(divid).removeClass(function() {
 		var cssclasses = $(this).attr('class').split(' ');
 		if(cssclasses.length > 1){

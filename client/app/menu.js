@@ -1,3 +1,6 @@
+var hub = false;
+var submenu = '';
+
 function showMenu(params) {
 	
 		$('<div id="slideSiteTopBarMenu" class="slideSiteTopBarMenu"></div>' ).appendTo($('#slideSiteMenu'));
@@ -15,7 +18,7 @@ function showMenu(params) {
 		params.menuArray.forEach(function(obj) {
 			
 			
-			var custom = false;	
+			var custom ;	
 			//<a href="/#/'+obj.info.name+'/">'	
 										
 			$('<div id="slideSiteTopBarMenu'+cnt+'"  class="menuItem"> <div id="slideSiteTopBarMenuNest'+cnt+'">  '+obj.info.name+' </div> </div>' ).appendTo($('#slideSiteTopBarMenu'));
@@ -47,12 +50,13 @@ function showMenu(params) {
 							
 				if(customObj === obj.info.name) {
 								
-								
-					console.log('menu custom : '+obj.info.name+' --> ',customObj);
+					if(params.custom[customObj].viewChain) {
+						
+						console.log('menu custom : '+obj.info.name+' --> ',params.custom[customObj].viewChain);
+						custom = params.custom[customObj].viewChain;
+
+					}
 					
-					
-					
-					custom = true;
 				
 				
 				}
@@ -60,9 +64,100 @@ function showMenu(params) {
 			
 			}
 
-			$('#slideSiteTopBarMenu'+cnt).click(function() {	
-				window.location.hash = '#/'+obj.info.name+'/';
-			});
+			if(custom) {
+				
+				if(custom[0].view === 'submenu') {
+					
+					if(custom[0].submenu) {
+					
+					
+						params.gotoCategory('level/0/'+obj.info.name,0,false,initSubMenu,[  cnt , obj , custom[0].submenu ]); 
+
+					
+					} else {
+						
+						
+						params.gotoCategory('level/0/'+obj.info.name,0,false,initSubMenu,[  cnt , obj ]); 
+
+					
+					}
+					
+					
+				} else if(custom[0].view === 'overview') {
+	
+					$('#slideSiteTopBarMenu'+cnt).click(function() {
+					
+						if(hub === 'submenu') {
+							
+							closeSubMenu()
+						
+						}
+						
+						window.location.hash = '#/'+obj.info.name+'/';
+					});
+					
+				} else if(custom[0].view === 'dedicated') {
+	
+										
+	
+					$('#slideSiteTopBarMenu'+cnt).click(function() {
+					
+							if(hub === 'submenu') {
+							
+							closeSubMenu()
+						
+						}
+
+						window.location.hash = '#/p/'+obj.info.name+'/';
+					});
+					
+				}
+
+				
+				function initSubMenu(array,passon) {
+				
+					//alert('AAAA');
+						
+					$('#slideSiteTopBarMenu'+passon[0]).click(function() {
+				   	 	openSubMenu(passon[1].info.name,array,custom);
+				   	 	//window.location.hash = '#/'+passon[1].info.name+'/';
+				   	 	if(passon[2]) {
+				   	 		
+				   	 		setTimeout(function() {
+				   	 	
+							if(passon[2] == 'dedicated') {
+								window.location.hash = '#/p/'+passon[1].info.name+'/';
+							} else if(passon[2] == 'overview') {
+								window.location.hash = '#/'+passon[1].info.name+'/';
+							}
+							
+							},420);
+						}
+				   	 	
+				   	 	
+					});
+					
+					
+					
+					
+				}
+				
+				
+			} else {
+
+				$('#slideSiteTopBarMenu'+cnt).click(function() {	
+				
+					if(hub === 'submenu') {
+							
+							closeSubMenu()
+						
+						}
+				
+				
+					window.location.hash = '#/'+obj.info.name+'/';
+				});
+			
+			}
 				
 			cnt++;
 		});

@@ -55,10 +55,16 @@ function topBar(params) {
 }				
 
 
+
 function logoLoaded(img) {
 	setTimeout(function() {	
-	$('#slideSiteTopBar').animate({opacity: 1,top : 0 },{duration:400});
-	$('#slideSiteMenu').animate({opacity: 1,top : $(window).height()-gParams.winMarginBot },{duration:400});
+	
+		
+		$('#slideSiteTopBar').animate({opacity: 1,top : 0 },{duration:400});
+
+		
+		$('#slideSiteMenu').animate({opacity: 1,top : $(window).height()-gParams.winMarginBot },{duration:400});
+
 	
 	    	//$('#slideSiteHub').animate({opacity: 1,top : $(window).height()-params.winMarginBot },{duration:200});
 	}, 800);

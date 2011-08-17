@@ -61,9 +61,6 @@ function position(params,animate) {
 		$('#slideSiteMenuText').removeClass('slideSiteMenuExtraSmall');
 	}
 	
-	
-	
-	
 	if(Math.abs(params.index/params.maxDisplay-Math.floor(params.index/params.maxDisplay)) > 0) {
 		
 		/*
@@ -128,7 +125,6 @@ function position(params,animate) {
 		var x = Math.floor( iIndex / maxH  )*(params.w+params.marginW)+params.winMarginWidth+widthMarginOver ,
 	    	y = iIndex*(params.h+params.marginH) - Math.floor( iIndex / maxH  )*maxH*(params.h+params.marginH)+topMarginOver+params.winMarginTop+params.hSpacing+params.marginH/2-params.padding-params.hubRealH/2;
 
-
 		var vis,
 			hidden;
 			
@@ -166,3 +162,9 @@ function position(params,animate) {
 }
 
 
+
+
+
+
+
+//==============================
