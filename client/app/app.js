@@ -14,6 +14,23 @@
 //Fix level loading op de server! 
 
 
+//VIEWCHAIN
+
+
+
+//- overview stap 2 (when's)
+//- nested stappen pak op default overview stap 2 of later
+// overview filter op files (show)
+// - > how to detect? make comparison? nested - > x / y / -< check of viewChain[1]; of viewChain[0] == submenu && viewChain[2] voor y
+
+//- dedicated stap 2 (when's)
+//- nested stappen pak op default dedicated stap 2 of later
+
+//fix dat bij hub.js je niet per see een array moet maken maar dta een object met when ook werkt!
+
+//close btn knallen - fix met search
+
+
 $(this).ready( function() {
 	
 	setTimeout(function() {
@@ -33,17 +50,23 @@ $(this).ready( function() {
 		marginH: 40 ,
 		bg: true,
 		winMarginBot: 50,
-		imgCollectionH : 150,
+		imgCollectionH : 125,
 		showMenu: true,
-		home: 'p/fotos',
+		home: 'fotos',
 		menuMarginW:20,
 		titleH:35,
 		ImgTitle:false,
 		textCollumW: 480,
 		dTextCollumMargin: 94,
 		hubH: 125,
-		viewChain: [ { view: 'overview'  }  ]
+		viewChain: [ 
+			{ 
+				view: 'overview' , 
+				context: 'self'  
+			}  
+		]
 	},
+	
 	{
 		fotos: 
 	    {
@@ -56,8 +79,9 @@ $(this).ready( function() {
 			padding: 0,
 			viewChain: [
 	    	{
-	    		view: 'dedicated',
-	    		context: 'self'
+	    		view: 'overview',
+	    		context: 'self',
+	    		show: 'img'
 	    	}
 	    	
 	    	]
@@ -86,7 +110,7 @@ $(this).ready( function() {
 	    		[
 	    			{   
 	    				when: 'folder', 
-	    				view: 'dedicated' ,
+	    				view: 'overview' ,
 	    				context: 'self' 	    			
 	    			}
 	    		,
@@ -115,7 +139,13 @@ $(this).ready( function() {
 	    			view: 'submenu' ,
 	    			context: 'self' ,
 	    			show: 'folder' 
-	    		}
+	    		},
+	    		[{   
+	    				when: 'folder', 
+	    				view: 'overview' ,
+	    				context: 'self' 	    			
+	    		}]
+
 	   
 	    		
 	    			

@@ -8,10 +8,8 @@ function closeSubMenu() {
 
 	submenu = ''
 	hub = false;
-
-
 	gParams.hubRealH = 0
-	$('#slideSiteHub').animate({  top: $(window).height()-gParams.hubRealH-gParams.winMarginBot },{duration:200});
+	$('#slideSiteHub').animate({  top: $(window).height()-gParams.hubRealH-gParams.winMarginBot },{duration:300});
 	position(gParams,true);
 
 }
@@ -24,6 +22,9 @@ function openSubMenu(menuStr,array,custom) {
 	    $('#slideSiteHub').animate({  top: $(window).height()-gParams.hubRealH-gParams.winMarginBot },{duration:200});
 		submenu = ''
 		hub = false;
+		
+			position(gParams,true);
+
 	
 	} else {
 
@@ -57,22 +58,6 @@ function openSubMenu(menuStr,array,custom) {
 	   
        $('<div id="slideSiteHubContent"></div>' ).appendTo($('#slideSiteHub'));
 	   
-	   /*
-	   [
-	    			{   
-	    				when: 'folder', 
-	    				view: 'overview' ,
-	    				context: 'self' 	    			
-	    			}
-	    		,
-	    			{
-	    				when: 'img',
-	    				view: 'dedicated',
-	    				context: 'parent',
-	    				show: 'img'
-	    			}
-	    		]		
-	   */ 		
 	   var cnt = 0;
 	   
 	   array.forEach(function(obj) {
@@ -88,13 +73,11 @@ function openSubMenu(menuStr,array,custom) {
 		 			$('#'+obj.uid+cnt+'subMenu').click(function() {
 		 				
 		 				if(!custom[1]) {
-		 			
 		 					custom[1] = {};
-		 		
 		 				} 			 
 		 				 			 
 		 				 			 
-		 				if(custom[1].when || custom[1].length ) {
+		 				if(custom[1].length) {
 		 					if(custom[1].length) {
 		 						custom[1].forEach(function(objnested) {
 		 							if( new RegExp(objnested.when).test(obj.info.type) ) {			 																
@@ -113,23 +96,7 @@ function openSubMenu(menuStr,array,custom) {
 										}
 		 							}
 		 						});		 					
-		 					} else {
-		 						if( new RegExp(objnested.when).test(obj.info.type) ) {			 																
-										if(objnested.context == 'parent') {
-											if(objnested.view === 'overview') {
-												window.location.hash = '#/'+menuStr+'/'+obj.uri;
-											} else {
-												window.location.hash = '#/p/'+obj.info.src.replace(new RegExp( '^'+gParams.contentDir+'/' ) , ''  );
-											}
-										} else {
-											if(objnested.view === 'overview') {
-												window.location.hash = '#/'+obj.info.src.replace(new RegExp( '^'+gParams.contentDir+'/' ) , ''  )+'/';
-											} else {
-												window.location.hash = '#/p/'+obj.info.src.replace(new RegExp( '^'+gParams.contentDir+'/' ) , ''  )+'/';
-											}
-										}
-		 						} 
-		 					}	
+		 					} 
 		 					
 			 			} else {
 							window.location.hash = '#/p/'+obj.info.src.replace(new RegExp( '^'+gParams.contentDir+'/' ) , ''  );
@@ -149,8 +116,7 @@ function openSubMenu(menuStr,array,custom) {
 		 		
 		 		}
 		 	
-		 			
-	 				if(custom[1].when || custom[1].length ) {
+	 				if(custom[1].length ) {
 		 					if(custom[1].length) {
 		 						custom[1].forEach(function(objnested) {
 		 							if( new RegExp(objnested.when).test(obj.info.type) ) {			 																
@@ -169,23 +135,7 @@ function openSubMenu(menuStr,array,custom) {
 										}
 		 							}
 		 						});		 					
-		 					} else {
-		 						if( new RegExp(objnested.when).test(obj.info.type) ) {			 																
-										if(objnested.context == 'parent') {
-											if(objnested.view === 'overview') {
-												window.location.hash = '#/'+menuStr+'/'+obj.uri;
-											} else {
-												window.location.hash = '#/p/'+obj.info.src.replace(new RegExp( '^'+gParams.contentDir+'/' ) , ''  );
-											}
-										} else {
-											if(objnested.view === 'overview') {
-												window.location.hash = '#/'+obj.info.src.replace(new RegExp( '^'+gParams.contentDir+'/' ) , ''  )+'/';
-											} else {
-												window.location.hash = '#/p/'+obj.info.src.replace(new RegExp( '^'+gParams.contentDir+'/' ) , ''  )+'/';
-											}
-										}
-		 						} 
-		 					}	
+		 					}
 		 					
 			 			}		 		
 		 		

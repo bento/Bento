@@ -21,13 +21,20 @@ function Aplayer(parentid, options){
     								'<div id="avolume" class="audioControls volumeFullIcon"></div>'+
     								'<div id="abarholder" class="audioBarHolder">'+
     									'<div id="avolumebar" class="volumeBar"></div>'+
+    									'<div id="avolumefill" class="volumeBarFill"></div>'+
     									'<div id="avolumeslider" class="volumeSlider"></div>'+
+    									'<div id="avolumebarlistener" class="volumeBarListener"></div>'+
     								'</div>'+
     							'</div>'+
 							'</div>'
 							);
 							
 	this._audio = document.getElementById('aplayer')
+	this._audio.volume = 0.75;
+	
+	var vbw = Number($('#avolumebar').css('width').split('px')[0])
+	
+	$('#avolumeslidefeeler').css({left:5})
 	
    	$('#aplayresume').click(function(){
    		aplayer.playToggle()
@@ -41,7 +48,64 @@ function Aplayer(parentid, options){
    	$('#avolume').click(function(){
    		aplayer.muteToggle()
    	})   	
+   	$('#avolumebarlistener').mousedown(function(e) {
    	
+   		setCClass('#avolumeslider', 'volumeSliderActive');	
+   		$(window).mouseup(function(){
+   			$(window).unbind('mouseup')
+   			$(window).unbind('mousemove')
+   			setCClass('#avolumeslider', 'volumeSlider');	
+   		})
+   		
+		volumeSlide(e)		
+	
+		$(window).mousemove(function(e){
+			volumeSlide(e)
+		});		
+	});
+			
+	function volumeSlide(e){
+
+		if(aplayer._audio.muted){
+			aplayer._audio.muted = false;
+		}
+		
+		var x = e.pageX - ($('#avolumebar').offset().left+5);
+		var mx = vbw
+		var perc = x/(vbw-10)
+		if(x<0){
+			x=0;
+			perc = 0;
+		}
+		if(x>(vbw-10)){
+			x=(vbw-10);
+			perc=1;
+		}
+		
+		
+		aplayer._audio.volume = perc
+		$('#avolumeslider').css({left:x})
+		$('#avolumefill').css({width:x})
+		var volumeclass = 'volumeFullIcon';
+		if(perc < 0.8){
+			volumeclass = 'volumeHalfIcon';
+			if(perc < 0.4){
+				volumeclass = 'volumeIcon';
+				if(perc === 0){
+					volumeclass = 'volumeMuteIcon';
+				}
+			}
+			
+		}
+		setCClass('#avolume', volumeclass);	
+	}		
+		
+			
+
+	// do CSS
+
+	$('#avolumeslider').css({left:(vbw-10)*0.75})
+	$('#avolumefill').css({width:(vbw-10)*0.75})
 
 }
 
@@ -119,19 +183,21 @@ Aplayer.prototype.playNext = function() {
 }
 
 Aplayer.prototype.muteToggle = function() {
-	var volumeclass = 'volumeFullIcon';
-	if(this._audio.volume < 0.8){
-		volumeclass = 'volumeHalfIcon';
-		if(this._audio.volume < 0.4){
-			volumeclass = 'volumeIcon';
+	if(this._audio.volume > 0){
+		if(this._audio.muted){
+			var volumeclass = 'volumeFullIcon';
+			if(this._audio.volume < 0.8){
+				volumeclass = 'volumeHalfIcon';
+				if(this._audio.volume < 0.4){
+					volumeclass = 'volumeIcon';
+				}
+			}		
+			this._audio.muted = false;
+			setCClass('#avolume', volumeclass);
+		}else{
+			this._audio.muted = true;
+			setCClass('#avolume', 'volumeMuteIcon');
 		}
-	}
-	if(this._audio.muted){
-		this._audio.muted = false;
-		setCClass('#avolume', volumeclass);
-	}else{
-		this._audio.muted = true;
-		setCClass('#avolume', 'volumeMuteIcon');
 	}
 }
 

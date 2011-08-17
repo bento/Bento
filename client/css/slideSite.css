@@ -63,6 +63,10 @@ body {
 	background: url("client/img/nav4.gif");
 	border-top: 1px solid #000;
 	position: absolute;
+	-moz-user-select: none;	
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	opacity: 0.9;
 }
 
 img{	/* DANGEREUX POUR LE FUNNNN */
@@ -75,6 +79,9 @@ img{	/* DANGEREUX POUR LE FUNNNN */
 	background: url("client/img/nav6.gif");
 	border-bottom: 1px solid #2b6493; 	
 	position: absolute;
+	-moz-user-select: none;	
+	-webkit-user-select: none;
+	-khtml-user-select: none;
 }
 
 .slideSiteMenuLarge {
@@ -127,7 +134,7 @@ img{	/* DANGEREUX POUR LE FUNNNN */
 
 .slideSiteMenuSearchGrphx {
 	position: absolute;
-	margin-top: -22px;
+	margin-top: -20px;
 	height: 20px;
 	z-index: 4;
 	padding-left:2px;
