@@ -7,7 +7,10 @@ var app = require('./sj/server/sj.js'),
 	app.utils.build('<html><head>','</body></html>','client/',init);
 		
 	function init(html) {
-	
+			
+			
+			//cleanImages('content/'); 
+			
 			var configRequest = {
 				param : {src:'config.json',data:true},
 				info : {},
@@ -37,6 +40,54 @@ var app = require('./sj/server/sj.js'),
 			app.fs.file(configRequest);
 	}
 	
+	//==================MAINTENANCE===================
+	
+	function cleanImages(startDir) {
+		
+		var readycounter = 0;
+
+		getfolders(startDir,'folder');
+		
+		function getfolders(folder,type) {
+			readycounter++;
+			var scriptloader = {
+				param : {src:folder,data:true,dirlist:true},
+				info : {},
+				ready: function() {
+						if(type === 'folder') {
+							scriptloader.info.data.forEach(function(src) {
+								
+								var imgTest = app.im.test(folder+src);
+								
+								if(imgTest && imgTest.resized) {
+								
+									var delReq = {
+										param : {src:folder+src},
+										info : {},
+										ready: function() { console.log('deleted: '+folder+src)  }
+									}
+								
+									app.fs.erase(delReq);
+										
+								} if(src.indexOf('.') < 0 ){
+									getfolders(folder+src+'/','folder');
+								}							
+							});	
+							
+						} 
+						
+					readycounter--;
+					if(readycounter===0) {
+						console.log('deleted images!');
+					} 
+				}
+			}
+			app.fs.file(scriptloader);		
+		}
+	
+	}
+				
+
 	//==================REQUESTS======================
 	function sizeImage(req) {
 		
@@ -66,6 +117,8 @@ var app = require('./sj/server/sj.js'),
 				uparams: req.uparams[0].split('/')  , 
 				ready: function() {
 					if(!imageRequest.info.data.message) {
+
+						req.info.res.writeHead(200, { 'Content-Type': 'image/jpeg' });
 						req.info.res.end(imageRequest.info.data);
 					} else {
 						req.info.res.end(JSON.stringify(imageRequest.info.data));
@@ -104,9 +157,14 @@ var app = require('./sj/server/sj.js'),
 						app.utils.build('<html><head>', '</body></html>', 'client/', init_nest );
 						function init_nest(html) {
 							output = html;
+
+							//req.info.res.writeHead(200, { 'Content-Type': 'text/html' });
+
 							req.info.res.end(output);
 						}
 					} else {
+						//req.info.res.writeHead(200, { 'Content-Type': 'text/html' });
+
 						req.info.res.end(output);	
 					}
 				}
@@ -129,7 +187,8 @@ var app = require('./sj/server/sj.js'),
 						
 						
 						console.log('fix text');
-						
+						req.info.res.writeHead(200, { 'Content-Type': 'text/html' });
+
 						req.info.res.end(String(  textRequest.info.data     ).replace(/(\r\n\r\n|\n\n|\r\r)/gm,'<\/br>                                                                                                  <\/br>'));
 						//req.info.res.end(String(  textRequest.info.data     ).replace(/\\</br></br>/gm,'</br></br>'));
 						
@@ -323,6 +382,8 @@ var app = require('./sj/server/sj.js'),
 		
 			var date2 = new Date();	
 			//console.log('GET CONTENT READY AT '+date2.getTime());
+
+			//request.info.res.writeHead(200, { 'Content-Type': 'application/json' });
 			request.info.res.end(JSON.stringify({data:collections}));
 		}	
 	

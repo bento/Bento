@@ -1,0 +1,17 @@
+.arrowNext {
+	background-image: url("client/img/b_next.png");
+	display:block;
+	height:40px;
+	width:40px;
+	margin:0;
+	padding:0;
+}
+
+.arrowPrev {
+	background-image: url("client/img/b_prev.png");
+	display:block;
+	height:40px;
+	width:40px;
+	margin:0;
+	padding:0;
+}

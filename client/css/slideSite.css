@@ -1,11 +1,25 @@
 body {
 	background-color: #ffffff;
-	background-image: url("client/img/cubes.png");
+	background: #c6c6c9 url("client/img/lines-45.png") repeat left top;
+	-webkit-font-smoothing: antialiased;
 }
+
 .miniScreen {
-	background-color: #ffffff;
 	padding: 10px;
-	border: 1px solid #dcdcdc; 
+	background-color: #fff;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.2), 0 0 1px rgba(0,0,0,0.25);
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.2), 0 0 1px rgba(0,0,0,0.25);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.2), 0 0 1px rgba(0,0,0,0.25);
+}
+
+
+
+.miniScreen:hover {
+	padding: 10px;
+	background-color: #fff;
+	box-shadow: 0 1px 10px rgba(0,0,0,0.2), 0 0 1px rgba(0,0,0,0.25);
+	-webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.2), 0 0 1px rgba(0,0,0,0.25);
+	-moz-box-shadow: 0 1px 10px rgba(0,0,0,0.2), 0 0 1px rgba(0,0,0,0.25);
 }
 
  
@@ -14,32 +28,23 @@ body {
 } 
 
 
-/*
-.miniScreenNested .fotoClass {
-		background-color: #333333;
-		border: 0px solid #dcdcdc; 
-}
-*/
-
-.miniScreen.fotoClass {
-	padding: 0px;
-	background-color: 'none';
-	border: 0px solid #dcdcdc; 
-}
-
-.miniScreenNested.fotoClass {
-	border: 0px solid #dcdcdc; 
-	background-color: 'none';
-}
-
-
 .miniScreenIcons {
-		background-color: #f6f6f6;
-		
-/*
-		border-top:  1px solid #dcdcdc; 
-		border-left:  1px solid #dcdcdc;
-*/ 
+	background-color: #f6f6f6;
+	position: absolute;
+	height: 28px;
+	width: 288px;
+	padding: 20px;
+	margin-top: 260px;
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(233,234,235,0.95)), to(rgba(203,204,206,0.95)));
+	background-image: -moz-linear-gradient(-90deg, rgba(233,234,235,0.95) 0%, rgba(213,214,216,0.95) 100%);
+	box-shadow: 0 -1px 2px rgba(0,0,0,0.3), 0 0 1px rgba(0,0,0,0.5), inset 0 1px 2px #fff;
+	-webkit-box-shadow: 0 -1px 2px rgba(0,0,0,0.3), 0 0 1px rgba(0,0,0,0.5), inset 0 1px 2px #fff;
+	-moz-box-shadow: 0 -1px 2px rgba(0,0,0,0.3), 0 0 1px rgba(0,0,0,0.5), inset 0 1px 2px #fff;
+	z-index: 4;
+	opacity: 1;
+	transition: opacity .5s ease-out;	
+	-webkit-transition: opacity .5s ease-out;
+	-moz-transition: opacity .5s ease-out;
 }
  
 .miniScreenTitle {

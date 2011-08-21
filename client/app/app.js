@@ -1,37 +1,4 @@
-
-
-//BUGS
-//search URI is nog niet kosher! check - srch all dan fotos DONE!
-
-//voor de server als er een nieuwe file met %20 in de naam komt vervang %20 met spatie 
-//Images nog niet altijd goed!!! pak de real h+w !
-//Maak een cleanup voor resized images
-
-//bug nog geen goede re-arrange bij resizen DONE!
-
-//params op 0 is undefined moet nog gefixed worden DONE!
-
-//Fix level loading op de server! 
-
-
-//VIEWCHAIN
-
-
-
-//- overview stap 2 (when's)
-//- nested stappen pak op default overview stap 2 of later
-// overview filter op files (show)
-// - > how to detect? make comparison? nested - > x / y / -< check of viewChain[1]; of viewChain[0] == submenu && viewChain[2] voor y
-
-//- dedicated stap 2 (when's)
-//- nested stappen pak op default dedicated stap 2 of later
-
-//fix dat bij hub.js je niet per see een array moet maken maar dta een object met when ook werkt!
-
-//close btn knallen - fix met search
-
-
-$(this).ready( function() {
+ $(this).ready( function() {
 	
 	setTimeout(function() {
 		$('.typekit-badge').empty().remove();
@@ -58,40 +25,105 @@ $(this).ready( function() {
 		ImgTitle:false,
 		textCollumW: 480,
 		dTextCollumMargin: 94,
-		hubH: 125,
+		hubH: 130,
+		hMarginW: 20,
+		hCurrentMargin: -10,
+		hH:90,
+		hideBars: 'dedicated',
+		dImgSpacing:20 ,
+		dTextSpacing:-1,
 		viewChain: [ 
 			{ 
 				view: 'overview' , 
-				context: 'self'  
-			}  
+				context: 'self'
+			}, 
+			{   
+	    		when: 'folder', 
+	    		view: 'overview' ,
+	    		context: 'self'
+	    	}
 		]
 	},
 	
 	{
+	
+	albums:
+	{
+	viewChain: [
+	
+		{view:'overview',
+		 show: 'folder'
+		} ,
+		
+		
+			{
+				when: 'folder',
+				view:'submenu',
+				submenu: 'dedicated', 
+				show: 'img'
+			}
+			
+			
+		,
+		
+			{
+			    view: 'dedicated',
+			    context: 'parent',
+			    show: 'img'
+	    	}
+			
+	]
+	
+	},
+	
 		fotos: 
 	    {
 	    	w:125,
 	    	h:125,
-	    	marginW: 0 ,
-			marginH: 0 ,
+	    	marginW: 40 ,
+			marginH: 40 ,
 			css:'fotoClass',
 			hSpacing: 50,
 			padding: 0,
+			hideBars: 'all',
 			viewChain: [
-	    	{
-	    		view: 'overview',
-	    		context: 'self',
-	    		show: 'img'
-	    	}
-	    	
+			
+			
+				{
+					view: 'submenu' ,
+	    			context: 'self' ,
+	    			submenu: 'overview'
+	    		} ,	
+			
+			
+	    		{
+	    			view: 'dedicated',
+	    			context: 'parent',
+	    			show: 'img'
+	    		}
 	    	]
-
 		} , 
 		search: 
 	    {
-	    	w:170,
-	    	h:170,
+	    	w:120,
+	    	h:120,
+	    	hSpacing: 0
+	    
 	    } ,
+	    'Ramon/square': 
+	    { 
+	     	w:505,
+	     	h:20,
+	     	css:'fotoClass',
+			viewChain: [
+	   			{
+	   				view: 'overview' ,
+	    			context: 'self' ,
+	    			show: 'img'
+	    		}
+	    	]	
+	    }
+	    ,
 		Ramon: 
 	    {
 	    	w:215,
@@ -111,7 +143,7 @@ $(this).ready( function() {
 	    			{   
 	    				when: 'folder', 
 	    				view: 'overview' ,
-	    				context: 'self' 	    			
+	    				context: 'self'
 	    			}
 	    		,
 	    			{   
@@ -140,13 +172,13 @@ $(this).ready( function() {
 	    			context: 'self' ,
 	    			show: 'folder' 
 	    		},
-	    		[{   
-	    				when: 'folder', 
+	    		
+	    		{   
 	    				view: 'overview' ,
 	    				context: 'self' 	    			
-	    		}]
-
-	   
+	    		}
+				
+	   			
 	    		
 	    			
 	    	]
@@ -155,103 +187,3 @@ $(this).ready( function() {
 	});
 			
 });
-
-
-
-/*
-
-	viewChain:
-	
-	'overview'
-	'dedicated'
-	'submenu'
-	'overview-child'
-	'dedicate-child'
-	'submenu-child'
-	
-	'-repeat'
-	
-	
-	viewChain: [ 'submenu' , overview-child , 'dedicated' , 'dedicated-child' ]
-	
-	viewChain: [ dedicated , overview-child , dedicated, dedicated-child ]
-		
-	viewChain: [ dedicated , overview-child , dedicated, dedicated-child, '-repeat' ]
-
-	viewChain: [ [ '(folder) overview' , 'dedicated -folder' ] ,  (folder) overview-child , '-repeat' ]
-	
-	
-	viewChain: [
-				{view: 'overview',
-				 match: 'folder' }
-				, [
-					{ match: '!folder' , 
-					  view: 'dedicated',
-					 },
-					 
-					 { 
-					   match: 'folder'
-					   view: 'dedicated'
-					   flag: 'child'
-					 }
-				  ] 
-			   ]
-	
-	
-	
-	overview -text|img
-	
-	(folder) overview
-	
-	(img|text|file|video|audio) dedicated -folder => dedicated -folder
-	
-	(folder) overview-child 
-	
-	
-	// FINAL:
-	
-	
-	viewchain: 	[
-	
-	
-	extra submenu:
-	
-	
-					{	// viewchain[0] is an Object, describing the behavior for the click on the 'root' folder
-						view : "overview" OR "dedicated" OR "submenu", 	// not present (default): "overview"
-						context : "parent" OR "self",		// not present (default): "self"
-						show : Filestring				// a string excluding or including certain file types // not present (default): "all"
-					},
-					
-					[	// viewchain[1] can be an Array, containing behavior Objects representing different UI behavior based on the type of child that is clicked
-						{
-							if : Filestring, // e.g. "jpg|png|gif"
-							view : dedicated
-							context : self
-						},
-						{
-							if : Filestring, // e.g. "folder"
-							view : overview
-						}
-					]
-					
-				]
-		
-
-*/
-
-/* fotos : [
-
-			w:1330,
-		h:315,
-		marginW: 140 ,
-		marginH: 140 ,
-		
-		css penis
-		
-
-		]
-		
-		
-		
-		*/

@@ -125,9 +125,9 @@ var im = require('imagemagick'),
 				//console.log(parseInt(sW)+' '+parseInt(sH))
 				
 				if(req.param.img.dest) {
-					dest = req.param.img.dest+'/'+req.uparams[req.uparams.length-1]+'_IM34_RESIZED'+crop+tW+tH+'.'+format;
+					dest = req.param.img.dest+'/'+req.uparams[req.uparams.length-1]+'_IM34_RESIZED'+crop+tW+tH+sW+sH+'.'+format;
 				} else {
-					dest = req.uparams.join('/')+'_IM34_RESIZED'+crop+tW+tH+'.'+format;
+					dest = req.uparams.join('/')+'_IM34_RESIZED'+crop+tW+tH+sW+sH+'.'+format;
 				}
 	    		im.identify( dest , function(err, img_nest){					
 	    			if(err) {	
@@ -148,9 +148,14 @@ var im = require('imagemagick'),
 									
 									if(req.param.img.crop) {
 										
-									//console.log('cropping '+parseInt(sW)+' '+parseInt(sH))
-								
+									console.log('cropping '+dest+'  size: W:'+parseInt(sW)+' H:'+parseInt(sH)+'  TEMPsize: W:'+parseInt(tW)+' H:'+parseInt(tH))
+									
+										if(tH > 4*tW || tH > 2500) {
 										
+										tH = sH;
+										
+										}
+										 										
 									  im.crop({
       										srcPath: dest,
      										dstPath: dest,

@@ -1,3 +1,18 @@
+
+function replaceCClass(divid, oldclass, newclass){
+	$(divid).removeClass(function() {
+		var cssclasses = $(this).attr('class').split(' ');
+		for(n in cssclasses){
+			if(cssclasses[n].match(oldclass)){
+				return cssclasses[n]
+			}
+		}
+		return null;
+	});
+	$(divid).addClass(newclass);
+}
+
+
 /*
 String.prototype.width = function(font) {
   var f = font || '12px arial',
@@ -11,3 +26,11 @@ String.prototype.width = function(font) {
   return w;
 }
 */
+
+
+
+
+
+
+
+/* END OF FOILERT! */

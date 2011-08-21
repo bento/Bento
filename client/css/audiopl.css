@@ -1,0 +1,105 @@
+.aplHolder{
+	background: #333333;
+}
+
+.aplImg{
+
+
+}
+
+.aplCover{
+	position: absolute;
+	padding: 5px;
+	/* background: red; */
+}
+
+.aplControlsHolder{
+	position: absolute;
+	/* background: yellow; */
+
+}
+
+
+.aplControls{
+	position: absolute;
+	/* background: gray; */
+}
+
+.aplPlaylist{
+	position: absolute;
+	color: white;
+	padding: 5px;
+	/* background: green; */ 
+}
+
+.aplListItem{
+	position: relative;
+	background: #666666;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+.aplListItemPlaying{
+	width: 30px;
+	display: inline-block;
+	background: blue;
+}
+
+.aplListItemNotPlaying{
+	width: 30px;
+	display: inline-block;
+}
+
+.aplListItemNumber{
+	width: 30px;
+	display: inline-block;
+}
+
+
+
+.aplListItemName{
+	display: inline-block;
+}
+
+.aplListItemFavorite{
+	background: none;
+	background-image: url("client/img/ui.png");
+	background-position: -24px 0px;
+	width: 24px;
+	position: absolute;
+	display: inline-block;
+}
+
+.aplListItemDownload{
+	background: none;
+	background-image: url("client/img/ui.png");
+	background-position: -96px -24px;
+	width: 24px;
+	position: absolute;
+	display: inline-block;
+}
+
+
+
+.aplMetaIcons{
+	position: absolute;
+	/* background: black; */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ENDOFOILELELEELE */

@@ -1,6 +1,6 @@
 var totalImages = 0;
 
-function displayMiniScreen(obj,params,slumber) {
+function displayMiniScreen(obj,params,viewChain,slumber) {
 
 		var CSSclass = params.css;
 		if(CSSclass == ' ') {
@@ -11,7 +11,7 @@ function displayMiniScreen(obj,params,slumber) {
 			
 		$('<div id="'+obj.uid+'" class="miniScreen'+CSSclass+'"></div>' ).appendTo($('#root_category'));
 		$('<div id="'+obj.uid+'nest" class="miniScreenNested'+CSSclass+'" style="height:'+params.h+'px;width:'+params.w+'px;"></div>' ).appendTo($('#'+obj.uid));
-		$('<div id="'+obj.uid+'icons" class="miniScreenIcons'+CSSclass+'"></div>' ).appendTo($('#'+obj.uid));
+		//$('<div id="'+obj.uid+'icons" class="miniScreenIcons'+CSSclass+'"></div>' ).appendTo($('#'+obj.uid));
 
 		$('#'+obj.uid+'icons').css({
 			'position':'absolute' ,  
@@ -76,17 +76,24 @@ function displayMiniScreen(obj,params,slumber) {
 	params.displayArray.push( $('#'+obj.uid) );
 
 	//==============CLICK HANDLING==============
+	console.log('viewChainObj --->>> ',viewChain)
 
 	$('#'+obj.uid).click(function() {
 		
+		//viewChain times;
 		
 		hashForce = false;
-			
-		if(params.current == '' ) {
+		
+		viewChainClickHandler(viewChain,params.current,obj)					
+					
+	
+		/*
+if(params.current == '' ) {
 			window.location.hash = '#/'+obj.info.src.split(params.contentDir+'/').join('')+'/';
 		} else {					
 			window.location.hash = '#/p/'+obj.info.src.split(params.contentDir+'/').join('');
 		}
+*/
 	}); 
 		
 	//============PRIVATE FUNCTIONS=============

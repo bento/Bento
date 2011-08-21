@@ -19,7 +19,7 @@ function showMenu(params) {
 			
 			var custom ;	
 			//<a href="/#/'+obj.info.name+'/">'								
-			$('<div id="slideSiteTopBarMenu'+cnt+'"  class="menuItem"> <div id="slideSiteTopBarMenuNest'+cnt+'">  '+obj.info.name+' </div> </div>' ).appendTo($('#slideSiteTopBarMenu'));
+			$('<div id="slideSiteTopBarMenu'+cnt+'"  class="menuItem"> <div id="slideSiteTopBarMenuNest'+cnt+'">'+obj.info.name.replace(/ /,'&nbsp;')+'</div> </div>' ).appendTo($('#slideSiteTopBarMenu'));
 			$('#slideSiteTopBarMenu'+cnt).css({
 				position:'absolute',
 				left:totalw,
@@ -28,6 +28,7 @@ function showMenu(params) {
 			});		
 
 			totalw+=$('#slideSiteTopBarMenu'+cnt).width()+params.menuMarginW;
+			
 			$('#slideSiteTopBarMenu'+cnt).css({
 				width: $('#slideSiteTopBarMenu'+cnt).width()
 			});	
@@ -38,11 +39,9 @@ function showMenu(params) {
 				cursor: 'hand'
 			});	
 			
-			//console.log('menu item: '+obj.info.name+' --> ',obj);
 			for (var customObj in params.custom) {
 				if(customObj === obj.info.name) {
 					if(params.custom[customObj].viewChain) {
-						console.log('menu custom : '+obj.info.name+' --> ',params.custom[customObj].viewChain);
 						custom = params.custom[customObj].viewChain;
 					}
 				}
@@ -50,7 +49,7 @@ function showMenu(params) {
 
 			if(custom) {
 				if(custom[0].view === 'submenu') {
-					if(custom[0].submenu) {
+					if(custom[0].submenu) {					
 						params.gotoCategory('level/0/'+obj.info.name,0,false,initSubMenu,[  cnt , obj , custom[0].submenu, custom[0].context ]); 
 					} else {
 						params.gotoCategory('level/0/'+obj.info.name,0,false,initSubMenu,[  cnt , obj,  ,custom[0].context ]); 
@@ -60,7 +59,7 @@ function showMenu(params) {
 						if(hub === 'submenu') {
 							closeSubMenu()
 						}
-						if(custom[0].context == 'parent') {
+						if(custom[0].context === 'parent') {
 							window.location.hash = '#//'+obj.uri;
 						} else {
 							window.location.hash = '#/'+obj.info.name+'/';
@@ -71,7 +70,7 @@ function showMenu(params) {
 						if(hub === 'submenu') {
 							closeSubMenu()
 						}
-						if(custom[0].context == 'parent') {
+						if(custom[0].context === 'parent') {
 							window.location.hash = '#/p//'+obj.info.name;
 						} else {
 							window.location.hash = '#/p/'+obj.info.name+'/';
@@ -80,14 +79,18 @@ function showMenu(params) {
 					});
 				}
 
-				function initSubMenu(array,passon) {				
+				function initSubMenu(array,passon) {
+				
+					if(gParams.current === passon[1].info.name ) {
+						openSubMenu(passon[1].info.name,array,custom);
+					}
+								
 					$('#slideSiteTopBarMenu'+passon[0]).click(function() {
-				   	 	openSubMenu(passon[1].info.name,array,custom);
-				   	 	if(passon[2]) {				   	 		
+				   	 	if(passon[2] && submenu !== passon[1].info.name) {				   	 		
 				   	 		setTimeout(function() {
 				   	 			if(passon[3]) {
-									if(passon[2] == 'dedicated') {	
-				   	 					if(passon[3] == 'parent') {
+									if(passon[2] === 'dedicated') {	
+				   	 					if(passon[3] === 'parent') {
 											window.location.hash = '#/p//'+passon[1].info.name;
 										} else {
 											window.location.hash = '#/p/'+passon[1].info.name+'/';
@@ -95,7 +98,7 @@ function showMenu(params) {
 			
 									} else {
 										
-				   	 					if(passon[3] == 'parent') {
+				   	 					if(passon[3] === 'parent') {
 											window.location.hash = '#//'+passon[1].uri;
 										} else {
 											window.location.hash = '#/'+passon[1].info.name+'/';
@@ -103,14 +106,19 @@ function showMenu(params) {
 									}
 				   	
 				   	 			} else {
-									if(passon[2] == 'dedicated') {
+									if(passon[2] === 'dedicated') {
 										window.location.hash = '#/p/'+passon[1].info.name+'/';
-									} else if(passon[2] == 'overview') {
+									} else if(passon[2] === 'overview') {
 										window.location.hash = '#/'+passon[1].info.name+'/';
 									}
 								}
 							},420);
 						}
+						
+												
+						openSubMenu(passon[1].info.name,array,custom);
+
+						
 					});
 				}
 			} else {
@@ -120,7 +128,7 @@ function showMenu(params) {
 						if(hub === 'submenu') {
 							closeSubMenu()
 						}
-						if(params.viewChain[0].context == 'parent') {
+						if(params.viewChain[0].context === 'parent') {
 							window.location.hash = '#//'+obj.uri;
 						} else {
 							window.location.hash = '#/'+obj.info.name+'/';
@@ -131,7 +139,7 @@ function showMenu(params) {
 						if(hub === 'submenu') {
 							closeSubMenu()
 						}
-						if(params.viewChain[0].context == 'parent') {
+						if(params.viewChain[0].context === 'parent') {
 							window.location.hash = '#/p//'+obj.info.name;
 						} else {
 							window.location.hash = '#/p/'+obj.info.name+'/';
@@ -140,9 +148,6 @@ function showMenu(params) {
 					});
 				}
 
-						
-				
-				
 			}
 			cnt++;
 		});

@@ -10,9 +10,13 @@
 
 
 .dTextNumber.nesting4gibbbens {
-	
 		font-size: 51px;
-
 }
 
 
+.dedicatedCollectionBg.nesting4gibbbens {
+	background-image: url("client/img/cubes.png");
+ 	background-color: #ffffff;
+ 	/*border-left: 1px solid #3b3b3b;/*/
+ 	//margin-left: -2px;
+}

@@ -1,5 +1,11 @@
 function dedicatedView(obj,index,params) {
 
+	//ViewChain
+	var custom = params.viewChain,
+		customPos = 0,
+		showExpression = false,
+		nextCustom;
+
 	// resize positioning 
 	var CSSclass = params.css;
 	if(CSSclass == ' ') {
@@ -14,12 +20,9 @@ function dedicatedView(obj,index,params) {
 	//first init ALL backgrounds --> delay the loading!	
 	// use resizing for images based on window . width - margin *2 
 	// make new option in img uri crop - in name and in service!
-
 	$('<div id="root_category" style:"position:absolute"></div>').appendTo('#root_screens');	
-	
-	$('<div id="dHolder"></div>').appendTo($('#root_category'))
-
-	$('<div id="dCloseBtn" class="icon close"></div>').appendTo($('#root_category'))
+	$('<div id="dHolder"></div>').appendTo($('#root_category'));
+	$('<div id="dCloseBtn" class="icon close"></div>').appendTo($('#root_category'));
 	
 	$('#dCloseBtn').css({
 		left: $(window).width()-50,
@@ -40,6 +43,61 @@ function dedicatedView(obj,index,params) {
 	params.dedicatedPages = [];
 	params.dedicatedCurrentPage = 0;
 	
+	//ViewChain
+	for (var customObj in params.custom) {
+			
+	 	if(customObj === obj.name) {
+	 		if(params.custom[customObj].viewChain) {
+	 			console.log('displayCategory custom : '+obj.name+' --> ',params.custom[customObj].viewChain);
+	 			custom = params.custom[customObj].viewChain;
+	 		}
+	 	}
+	}
+		
+	customPos = obj.name.split('/').length-1;
+	
+
+/*
+	if(custom[customPos].view === 'submenu' || custom[customPos][0].view === 'submenu' ) {
+		customPos++;
+	}
+*/
+	
+	if(custom.length && customPos > custom.length-1) {
+		customPos = custom.length-1;	
+	}
+	
+	if(custom.length && customPos < 0) {
+		customPos = 0;
+	}
+	
+	
+	
+	
+	if(custom[customPos] && (!custom[customPos].length) ) {	
+		custom[customPos] = [ custom[customPos] ];
+	}
+	
+	if(custom[customPos] && custom[customPos].length) {
+		custom[customPos].forEach(function(cObj) {
+			if(cObj.view === 'overview') {
+				if(cObj.show) {
+					if(showExpression) {
+						showExpression += '|'+cObj.show;
+					} else {
+						showExpression = cObj.show;
+					}
+				}
+			} 
+		});
+	}
+	
+	if(custom[customPos+1]) {
+		nextCustom = custom[customPos+1];
+	}
+	
+	console.log('DEDICATED::ViewChain-expression:: '+showExpression);
+
 	for(var i = 0 ; i < obj.content.length ; i ++ ) {		
 	    
 	   	$('<div id="'+obj.content[i].uid+'" ></div>' ).appendTo($('#dHolder'));
@@ -117,8 +175,10 @@ function createImageDedicated(obj,i,params) {
 
 	if(!params.dedicatedDone[i]) {
 
-		var w = Number($(window).width()-params.winMarginWidth*2-params.dImgSpacing*2),
-			h = Number($(window).height()-params.winMarginTop-params.winMarginBot-params.dImgSpacing*2-params.hubRealH)
+		//alert(params.dImgSpacing);
+
+		var w = Number($(window).width()-params.winMarginWidth*2-(params.dImgSpacing*2)),
+			h = Number($(window).height()-(params.dImgSpacing*2)-params.hubRealH)
 		
 			$('<div id="'+obj.content[i].uid+'loader"><img src="client/img/ajax-loader-dark.gif"></img></div>').appendTo($('#'+obj.content[i].uid));
 
@@ -388,11 +448,12 @@ function createTextDedicated(obj,i,params) {
 
 }
 
-//===============COLLECTION=====================================
+//===============COLLECTION=============================================================================================================
 function createCollectionDedicated(obj,i,params) {
 	
+	console.log(obj)
 	if(!params.dedicatedDone[i]) {
-	
+
 		//identify collection type
 			// 1 text + 1 image
 			// only images	
@@ -401,13 +462,61 @@ function createCollectionDedicated(obj,i,params) {
 			// multiple collections (nested collections)
 			// audio with text and picture (album)
 			// mix of everything (files etc);
-			// issues: navigation? (scroll etc.)
+
 		
-			// if dedicated holder .height > window.height -> take control of srcolling
+		var imglist = [],
+			audiolist = [],
+			vidlist = [],
+			filelist = [],
+			textlist = [];
+		
+		for(n in obj.content[i].info.children){
+			switch(obj.content[i].info.children[n].info.type){
+				case 'img':
+					imglist.push(obj.content[i].info.children[n]);
+					break;
+				case 'audio':
+					audiolist.push(obj.content[i].info.children[n]);
+					break;
+				case 'vid':
+					vidlist.push(obj.content[i].info.children[n]);
+					break;
+				case 'file':
+					filelist.push(obj.content[i].info.children[n]);
+					break;
+				case 'txt':
+					textlist.push(obj.content[i].info.children[n]);
+					break;
+			}
+		}
+		
+	
+		var w = Number($(window).width()-params.winMarginWidth*2-params.dImgSpacing*2),
+			h = Number($(window).height()-params.winMarginTop-params.winMarginBot-params.dImgSpacing*2);
+
 		
 		generateTitle(obj,i,params);
-
-		$('<div id="'+obj.content[i].uid+'text" class="miniScreenText'+params.CSS+'">collection</div>' ).appendTo($('#'+obj.content[i].uid));		
+		
+		$('#'+obj.content[i].uid).append('<div id="'+obj.content[i].uid+'page1" class="'+params.CSS+'"></div>')
+		
+		$('#'+obj.content[i].uid+'page1').css({
+						width : w,
+						height: h,
+	    				position:'absolute',
+	    				left:Number($(window).width()-w)/2,
+	    				top:Number($(window).height()-gParams.winMarginTop-gParams.winMarginBot-h)/2+gParams.winMarginTop												
+	    			})		
+		
+		if(audiolist.length){
+			var cover = 'temp/audio.png';
+			if(imglist[0]){
+				cover = imglist[0].info.src;
+			}
+			createAudioPlaylist(obj.content[i].uid+'page1',audiolist,{cover:cover,w:params.textCollumW, h:200})
+		}
+		
+		
+		//$('<div id="'+obj.content[i].uid+'text" class="miniScreenText'+params.CSS+'">collection</div>' ).appendTo($('#'+obj.content[i].uid));		
 	
 		$('#'+obj.content[i].uid+'text').css({
 			width:params.textCollumW,
@@ -420,7 +529,9 @@ function createCollectionDedicated(obj,i,params) {
 		
 }
 
-//===============TITLE=====================================
+//===============TITLE=============================================================================================================
+
+
 function generateTitle(obj,i,params,text) {
 	
 	var margin = params.dTextSpacing;
@@ -464,22 +575,22 @@ function loadDedicated(i,params,force) {
 		
 		params.dedicatedCurrentPage++;
 		i--;	
-		$('#dHolder').animate({ left: -params.dXpos[i]-$(window).width()*params.dedicatedCurrentPage },{duration:700});
+		$('#dHolder').animate({ left: -params.dXpos[i]+2-$(window).width()*params.dedicatedCurrentPage },{duration:700});
 				
 	} else if(params.dedicatedCurrent>i && params.dedicatedPages[i+1] > 1 && params.dedicatedCurrentPage > 0  && force != true ){
 				
 		params.dedicatedCurrentPage--;
 		i++;	
-		$('#dHolder').animate({ left: -params.dXpos[i]-$(window).width()*params.dedicatedCurrentPage },{duration:700});
+		$('#dHolder').animate({ left: -params.dXpos[i]+2-$(window).width()*params.dedicatedCurrentPage },{duration:700});
 
 	}  else {
 	
 		if(params.dedicatedCurrent>i && params.dedicatedPages[i] > 1 && force != true ) {
 			params.dedicatedCurrentPage = params.dedicatedPages[i]-1 ;			
-			$('#dHolder').animate({ left: -params.dXpos[i]-$(window).width()*params.dedicatedCurrentPage },{duration:700});
+			$('#dHolder').animate({ left: -params.dXpos[i]+2-$(window).width()*params.dedicatedCurrentPage },{duration:700});
 		} else {
 	 		params.dedicatedCurrentPage = 0;
-			$('#dHolder').animate({ left: -params.dXpos[i] },{duration:700});
+			$('#dHolder').animate({ left: -params.dXpos[i]+2 },{duration:700});
 		}
 	
 	}
@@ -500,6 +611,8 @@ function loadDedicated(i,params,force) {
 	},700);
 
 	params.dedicatedCurrent = i;
+
+
 
 }
 
@@ -537,9 +650,9 @@ function posImg(img,pre,loader) {
 	
 
 														
-	$(img).animate({opacity:1},{duration:500});
+	$(img).animate({opacity:1},{duration:300});
 	
-	setTimeout(function(){ $('#'+pre).empty().remove() },500);
+	setTimeout(function(){ $('#'+pre).empty().remove() },300);
 	
 	
 	
@@ -593,14 +706,16 @@ function closeDedicated(params) {
 
 
 
+/*
 
 
 
 
+//=============END OF FOLEIOE!!!!===========
 
 
 
-
+*/
 
 
 

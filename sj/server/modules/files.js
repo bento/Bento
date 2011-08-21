@@ -5,6 +5,14 @@ var	fs = require('fs'),
 	utils = require('./utils.js'),
 	freezer = false;
 	
+	exports.erase = function(req) {
+		if(req.param.src) {
+			fs.unlink(req.param.src, function (err) { 
+				req.ready();
+			});
+		}
+	}
+		
 	exports.file = function(req) {
 											
 			if(req.param.src) {
